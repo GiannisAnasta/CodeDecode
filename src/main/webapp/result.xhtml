@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+
+    <h:head>
+        <h:head>
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <meta http-equiv="X-UA-Conpatible" content="IE=edge" />
+            <h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+            <title>Decoding App</title>
+        </h:head> 
+        <script src="https://code.jquery.com/jquery-1.9.1.min.js"/>
+    </h:head>
+    <h:body>
+        <div class="container">
+            <div class="navbar navbar-inverse" >
+                <div  class="col-sm-offset-3 col-sm-4">
+                    <div class="navbar-brand">
+                        --> Welcome, <h:outputText id="name" value="#{userlogin.name}" style="text-transform: capitalize " /> ! 
+                    </div>
+                </div>
+            </div>
+            <div class="row"></div>
+            <div class="col-xs-12"></div>
+            <h:form id="main"> 
+                <div class="form-group">
+                    <h:outputLabel value="Message:" styleClass="control-label col-sm-1"/>
+                    <div class="col-sm-4">
+
+                        <h:inputText id="Message" value="#{userlogin.msg}" styleClass="form-control"
+                                     required="true" label="Message"/>
+                    </div>
+                    <br></br>
+                    <br></br>
+                    <!--Encode messages stuff-->
+                    <h:panelGrid columns="3">
+                        <h:commandButton id="Send" value="Send"
+                                         actionListener="#{historyHolder.encode(userlogin.name,userlogin.msg,userlogin.key)}"
+                                         action="#{userlogin.reset}"
+                                         styleClass="btn btn-default"/>
+                        <h:message for="Send" style="color:red" />
+                    </h:panelGrid>
+                    <h:outputLabel value="History :"/>
+                 
+                        <h:dataTable id="history" value="#{historyHolder.history}" style="text-transform: capitalize"
+                                     var="Message">
+                            <h:column>
+
+                                <h:outputText escape="true" value=" #{Message}" style='color: blue'/>
+                            </h:column>
+                        </h:dataTable>
+                    
+                </div>
+                <!--Encode messages stuff-->
+
+                <!--refresh messages stuff-->
+                <h:commandButton id="refresh" style="visibility: hidden">
+                    <f:ajax render="history"/>
+                </h:commandButton>
+                <script>
+                    jQuery(document).ready(function ($) {
+
+                        var interval = 500;
+                        var refresh = function () {
+                            $('#main\\:refresh').click();
+                            setTimeout(function () {
+                                refresh();
+                            }, interval);
+                        };
+                        refresh();
+                    });
+                </script>
+                <!--refresh messages stuff-->
+
+            </h:form>
+            <h:form>
+
+                <!--Decode messages stuff-->
+                <h:commandButton id="decode"  value="Decode"
+                                 actionListener="#{DhistoryHolder.decodeAll(historyHolder.history,userlogin.key)}"
+                                 styleClass="btn btn-default"/>
+                <br></br> 
+                <h:outputLabel value= "Decoded history :"/>
+                <h:dataTable id="dhistory" value="#{DhistoryHolder.dhistory}" style="text-transform: capitalize"
+                             var="message"  >
+                    <h:column>
+                        <h:outputText escape="true" value=" #{message}" style='color: red'/>
+                    </h:column>
+
+                </h:dataTable>
+                <!--Decode messages stuff-->
+
+            </h:form>
+        </div>
+    </h:body>
+</html>

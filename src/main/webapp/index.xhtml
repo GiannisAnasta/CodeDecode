@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"> 
+    <h:head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta http-equiv="X-UA-Conpatible" content="IE=edge" />
+        <h:outputStylesheet library="css" name="bootstrap.min.css"></h:outputStylesheet>
+        <title>Decoding App</title>
+    </h:head> 
+    <h:body> 
+        <div class="container">
+            <div class="navbar navbar-inverse" >
+                <div  class="col-sm-offset-3 col-sm-4">
+                    <div class="navbar-brand">
+                        -Decoding Application-
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <h:form styleClass="form-horizontal">
+                        <div class="form-group">
+                            <h:outputLabel value="Username :" styleClass="control-label col-sm-4"/>
+                            <div class="col-sm-4">
+                                <h:inputText value="#{userlogin.name}" styleClass="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <h:outputLabel value="Key :" styleClass="control-label col-sm-4"/>
+                            <div class="col-sm-2">
+                                <h:inputText value="#{userlogin.key}" styleClass="form-control"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-4 col-sm-5">
+
+                                <h:commandButton action="result" value="Login" styleClass="btn btn-default"/>         
+                            </div>
+                        </div>
+                    </h:form>
+
+                </div>
+            </div>
+        </div>
+    </h:body> 
+</html>
+
